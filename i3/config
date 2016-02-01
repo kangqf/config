@@ -102,7 +102,7 @@ set $WS0 10:
 
 # 工作区内容定制
 bindsym $mod+1 workspace $WS1, exec --no-startup-id ~/.config/i3/bin/st xterm
-bindsym $mod+2 workspace $WS2, exec --no-startup-id ~/.config/i3/bin/st  google-chrome
+bindsym $mod+2 workspace $WS2, exec --no-startup-id ~/.config/i3/bin/st  google-chrome-stable
 bindsym $mod+3 workspace $WS3, exec --no-startup-id ~/.config/i3/bin/st atom
 bindsym $mod+4 workspace $WS4, exec --no-startup-id ~/.config/i3/bin/st smplayer
 bindsym $mod+5 workspace $WS5, exec --no-startup-id ~/.config/i3/bin/st  thunar

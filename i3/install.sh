@@ -22,16 +22,16 @@ cp -r wallpaper ~/.config/i3/
 
 # 生成conkyrc_bar配置
 cp conkyrc_bar ~/.config/i3/conkyrc_bar
-    sed -i "s/wlan0/$NET/g" ~/.config/i3/conkyrc_bar
+#    sed -i "s/wlan0/$NET/g" ~/.config/i3/conkyrc_bar
 
 # 生成i3配置
 cp ./config ~/.config/i3/
-    sed -i "s/xfce4-terminal/i3-sensible-terminal/g" $C
-    sed -i "17,24s/^\([^#]\)/#\1/g" $C
-    sed -i "46,50s/^\([^#]\)/#\1/g" $C
-    sed -i "59s/^\([^#]\)/#\1/g" $C
-    sed -i "62s/^\([^#]\)/#\1/g" $C
-    sed -i "23,24d" $C
+#    sed -i "s/xfce4-terminal/i3-sensible-terminal/g" $C
+#    sed -i "17,24s/^\([^#]\)/#\1/g" $C
+#    sed -i "46,50s/^\([^#]\)/#\1/g" $C
+#    sed -i "59s/^\([^#]\)/#\1/g" $C
+#    sed -i "62s/^\([^#]\)/#\1/g" $C
+#    sed -i "23,24d" $C
 
 fc-cache
 
