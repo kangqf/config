@@ -12,6 +12,10 @@ mkdir ~/.config/i3 ~/.fonts 2> /dev/null
 
 # 安装字体与st脚本
 cd $dir
+cp .dmrc ~/
+cp .xprofile ~/
+cp .Xresources ~/
+cp .xinitrc ~/
 cp -r font-awesome Monaco.ttf ~/.fonts
 cp -r bin ~/.config/i3/
 cp -r wallpaper ~/.config/i3/
@@ -29,6 +33,6 @@ cp ./config ~/.config/i3/
     sed -i "62s/^\([^#]\)/#\1/g" $C
     sed -i "23,24d" $C
 
-#fc-cache
+fc-cache
 
 echo -e "\n安装成功，请参照说明先配置好 $C 并重载以获得更好的体验！"
