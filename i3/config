@@ -1,0 +1,226 @@
+######################################################################
+#              My-i3-config
+# Date    : 21/01/2016
+# Author  : Kangqingfei
+# Version : V1.0
+#
+# 依赖:conky feh (可选推荐:xcompmgr freetype-infinality)
+# 更多内容请参考:
+# i3 User’s Guide: http://i3wm.org/docs/userguide.html
+# 主要参考 oh-my-i3 github: https://github.com/ID1258/oh-my-i3.git
+#
+######################################################################
+
+
+# => 开机自启（根据需要取消相应的注释#）
+
+# 壁纸须先安装feh，并在此指定路径
+exec --no-startup-id feh  "$HOME/.config/i3/wallpaper/wallpaper.jpg"
+# 设置透明须先安装xcompmgr，并在此指定软件和透明度（默认0.75），sleep保证transset在其所设置的软件之后启动，根据情况调节大小
+#exec --no-startup-id xcompmgr &
+#exec --no-startup-id sleep .2 && exec transset -n i3bar 0.75
+# 建议另外指定一个脚本来启动通用的开机自启项目
+#exec --no-startup-id $HOME/.config/i3/bin/rc.local
+# 总有一些奇葩无法正常用脚本启动，比如这个输入法
+exec --no-startup-id fcitx-autostart &
+exec --no-startup-id pnmixer &
+
+# => 设置快捷键
+# 设置super键
+set $mod Mod4
+# $mod+e 启动文件管理器
+bindsym $mod+e exec --no-startup-id thunar
+# 启动终端
+bindsym $mod+Return exec xterm
+# 关闭窗口
+bindsym $mod+q kill
+# $mod+d 打开程序启动器
+#bindsym $mod+d exec --no-startup-id dmenu_run -b -fn 'Monaco-12' -nb '#333333' -nf '#FFFFFF' -sb '#111111' -sf '#3399FF'
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+# $mod+g 水平新增窗口
+bindsym $mod+g split h
+# $mod+v 垂直新增窗口
+bindsym $mod+v split v
+# $mod+f 把当前工作区全屏
+bindsym $mod+f fullscreen toggle
+# 切换窗口的外观(stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+x layout toggle split
+# 切换窗口浮动还是嵌入 tiling / floating
+bindsym $mod+space floating toggle
+# 在浮动窗口和非浮动窗口之间跳转
+bindsym $mod+Ctrl+space focus mode_toggle
+# 使用$mod+鼠标拖动浮动的窗口
+floating_modifier $mod
+# 回到父窗口
+bindsym $mod+p focus parent
+# 跳到子窗口
+#bindsym $mod+i focus child
+
+# 重新载入配置文件
+bindsym $mod+Ctrl+c reload
+# 重启i
+bindsym $mod+Ctrl+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Ctrl+e exec "i3-nagbar -t warning -m '你要确定退出i3吗？ 这将结束你的X会话.' -b '退出' 'i3-msg exit'"
+# 进入到调整窗口大小模式
+bindsym $mod+r mode "resize"
+# $mod+m显示或隐藏状态栏
+bindsym $mod+m bar mode toggle
+# 在三种边框类型中切换
+bindsym $mod+b border toggle
+
+# => 窗口边框类型（边框类型有normal正常/none无边框/pixel 1 自定义宽度）
+# 默认普通窗口的边框类型
+new_window none
+# 默认浮动窗口的边框类型
+new_float normal
+# 取消工作区边缘的边框
+hide_edge_borders both
+
+# => 字体设置
+font pango:Monaco 10
+
+# => 工作区设置
+
+# 自动切换到新打开的窗口
+focus_on_window_activation focus
+#重复切换到当前工作区时会返回上一个所在工作区，有可能造成工作区错位
+#workspace_auto_back_and_forth yes
+# => 设定mod键与工作区名
+set $WS1  1:
+set $WS2  2:
+set $WS3  3:
+set $WS4  4:
+set $WS5  5:
+set $WS6  6:
+set $WS7  7:
+set $WS8  8:
+set $WS9  9:
+set $WS0 10:
+
+# 工作区内容定制
+bindsym $mod+1 workspace $WS1, exec --no-startup-id ~/.config/i3/bin/st xterm
+bindsym $mod+2 workspace $WS2, exec --no-startup-id ~/.config/i3/bin/st  google-chrome
+bindsym $mod+3 workspace $WS3, exec --no-startup-id ~/.config/i3/bin/st atom
+bindsym $mod+4 workspace $WS4, exec --no-startup-id ~/.config/i3/bin/st smplayer
+bindsym $mod+5 workspace $WS5, exec --no-startup-id ~/.config/i3/bin/st  thunar
+bindsym $mod+6 workspace $WS6, exec --no-startup-id ~/.config/i3/bin/st lxappearance
+bindsym $mod+7 workspace $WS7
+bindsym $mod+8 workspace $WS8
+bindsym $mod+9 workspace $WS9
+bindsym $mod+0 workspace $WS0
+
+# 移动当前窗口到不同的工作区
+bindsym $mod+Ctrl+1 move container to workspace $WS1
+bindsym $mod+Ctrl+2 move container to workspace $WS2
+bindsym $mod+Ctrl+3 move container to workspace $WS3
+bindsym $mod+Ctrl+4 move container to workspace $WS4
+bindsym $mod+Ctrl+5 move container to workspace $WS5
+bindsym $mod+Ctrl+6 move container to workspace $WS6
+bindsym $mod+Ctrl+7 move container to workspace $WS7
+bindsym $mod+Ctrl+8 move container to workspace $WS8
+bindsym $mod+Ctrl+9 move container to workspace $WS9
+bindsym $mod+Ctrl+0 move container to workspace $WS10
+
+# 切换工作窗口
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# 在当前工作区移动工作窗口
+bindsym $mod+Ctrl+h move left
+bindsym $mod+Ctrl+j move down
+bindsym $mod+Ctrl+k move up
+bindsym $mod+Ctrl+l move right
+bindsym $mod+Ctrl+Left move left
+bindsym $mod+Ctrl+Down move down
+bindsym $mod+Ctrl+Up move up
+bindsym $mod+Ctrl+Right move right
+
+# 调整你的窗口的大小，当你启用了边框的时你也可以用鼠标来完成
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h resize shrink width 3 px or 3 ppt
+        bindsym j resize grow height 3 px or 3 ppt
+        bindsym k resize shrink height 3 px or 3 ppt
+        bindsym l resize grow width 3 px or 3 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+
+
+
+# => 电源管理（$mod+z键呼出)
+set $mode_system 系统:锁屏(L) 注销(O) 关机(S) 重启(R) 取消(Esc)
+#set $mode_system  mode "mode_system"
+bindsym $mod+z mode "$mode_system"
+mode "$mode_system" {
+        bindsym l exec i3lock -c '#333333', exec sleep .1 && exec xset dpms force off, mode "default"
+        bindsym o exec i3-msg exit
+        bindsym s exec systemctl poweroff
+        bindsym r exec systemctl reboot
+        bindsym Escape mode "default"
+}
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+#bar {
+#        status_command i3status
+#        tray_output primary
+#}
+
+# 窗口颜色                边框    背景    文字    提示
+client.focused          #333333 #333333 #FFFFFF #333333
+client.focused_inactive #999999 #999999 #FFFFFF #3399FF
+client.unfocused        #999999 #999999 #FFFFFF #3399FF
+client.urgent           #990000 #990000 #FFFFFF #990000
+client.placeholder      #000000 #000000 #FFFFFF #000000
+client.background       #FFFFFF
+
+# i3bar
+bar {
+   # i3bar调用
+   status_command conky -c $HOME/.config/i3/conkyrc_bar
+   # 显示位置
+   #position top
+   # 是否隐藏
+   #mode hide
+   # 显示/隐藏切换键
+   #modifier $mod
+   # 拆解工作区名（隐藏前面的1:2:3:……）
+   strip_workspace_numbers yes
+   # 定义分隔符（适用于i3status）
+   #separator_symbol " "
+   colors {
+       background #333333
+       statusline #FFFFFF
+       #eparator  #3399FF
+       # 工作区颜色         边框    背景    文字
+       focused_workspace  #111111 #111111 #FFFFFF
+       active_workspace   #FFFFFF #FFFFFF #FFFFFF
+       inactive_workspace #333333 #333333 #FFFFFF
+       urgent_workspace   #990000 #990000 #FFFFFF
+       #binding_mode       #990000 #990000 #FFFFFF
+   }
+}
