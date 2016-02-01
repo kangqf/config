@@ -12,12 +12,12 @@ mkdir ~/.config/i3 ~/.fonts 2> /dev/null
 
 # 安装字体与st脚本
 cd $dir
-cp -r ./font-awesome ./Monaco.ttf ~/.fonts
-cp -r ./bin ~/.config/i3/
-cp -r ./wallpaper ~/.config/i3/
+cp -r font-awesome Monaco.ttf ~/.fonts
+cp -r bin ~/.config/i3/
+cp -r wallpaper ~/.config/i3/
 
 # 生成conkyrc_bar配置
-cp ./conkyrc_bar ~/.config/i3/conkyrc_bar
+cp conkyrc_bar ~/.config/i3/conkyrc_bar
     sed -i "s/wlan0/$NET/g" ~/.config/i3/conkyrc_bar
 
 # 生成i3配置
