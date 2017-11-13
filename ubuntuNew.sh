@@ -11,6 +11,8 @@ else
 	systemArch="386"; 
 fi
 
+githubURL="https://raw.githubusercontent.com/kangqf/config/ubuntu/"
+
 # flags to select the packages
 basicPkg="git zsh vim tmux tree wget curl vnstat rar unrar p7zip-fullzip unzip build-essential chromium-browser"
 
@@ -437,8 +439,8 @@ if [ $useJupyter == "Y" ];
 then
 	sudo apt-get install ipython ipython-notebook
 	sudo -H pip install jupyter
-	wget https://github.com/kangqf/config/blob/ubuntu/jupyter_notebook_config.py
-	wget https://github.com/kangqf/config/blob/ubuntu/mycert.pem
+	wget "$githubURLjupyter_notebook_config.py"
+	wget "$githubURLmycert.pem"
 	cp jupyter_notebook_config.py mycert.pem ~/.jupyter
 	sed -i "s/kqf/$USER/g" ~/.jupyter/jupyter_notebook_config.py
 	echo -e "alias jpy=\"nohup jupyter notebook &\""  >> ~/.zshrc
@@ -448,7 +450,7 @@ fi
 
 if [ $useTmuxConfig == "Y" ];
 then
-	wget https://github.com/kangqf/config/blob/ubuntu/tmux.conf
+	wget "$githubURLtmux.conf"
 	sudo mv /etc/tmux.conf /etc/tmux.conf.`date +%F-%R:%S`
 	sudo mv tmux.conf /etc/
 fi
@@ -459,7 +461,7 @@ then
 	sudo mv /etc/vim/vimrc /etc/vim/vimrc.`date +%F-%R:%S`
 	sudo mkdir /etc/vim/bundle
 	sudo git clone https://github.com/gmarik/Vundle.vim.git /etc/vim/bundle/Vundle.vim
-	wget https://github.com/kangqf/config/blob/ubuntu/vimrcNoYCM
+	wget "$githubURLvimrcNoYCM"
 	sudo mv vimrcNoYCM /etc/vim/vimrc
 	
 	echo -e "you need run sudo proxychains vim +PluginInstall"
