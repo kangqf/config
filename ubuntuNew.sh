@@ -4,17 +4,17 @@
 
 # get system bit
 systemBits=`getconf LONG_BIT`
-if [ $systemBits==64 ];
+if [ $systemBits == 64 ];
 then 
 	systemArch="amd64"; 
 else
 	systemArch="386"; 
 fi
 
-githubURL="https://raw.githubusercontent.com/kangqf/config/ubuntu/"
+githubURL=https://raw.githubusercontent.com/kangqf/config/ubuntu/
 
 # flags to select the packages
-basicPkg="git zsh vim tmux tree wget curl vnstat rar unrar p7zip-fullzip unzip build-essential chromium-browser"
+basicPkg="git zsh vim tmux tree wget curl vnstat rar unrar p7zip-full zip unzip build-essential chromium-browser"
 
 # variables relate to packages source  
 VERSION="xenial"
@@ -96,20 +96,20 @@ function updateSources()
 	echo -e "\e[0m"
 	sudo mv /etc/apt/sources.list /etc/apt/sources.list.`date +%F-%R:%S`
 	local tmp=$(mktemp)
-	echo "deb $mirror $VERSION $COMP" >> $tmp
-	echo "deb $mirror $VERSION-updates $COMP" >> $tmp
-	echo "deb $mirror $VERSION-backports $COMP" >> $tmp 
-	echo "deb $mirror $VERSION-security $COMP" >> $tmp
+	echo "deb $MIRROR $VERSION $COMP" >> $tmp
+	echo "deb $MIRROR $VERSION-updates $COMP" >> $tmp
+	echo "deb $MIRROR $VERSION-backports $COMP" >> $tmp 
+	echo "deb $MIRROR $VERSION-security $COMP" >> $tmp
 	# not use the Pre-Release resource
-	#echo "deb $mirror $VERSION-proposed $COMP" >> $tmp
+	#echo "deb $MIRROR $VERSION-proposed $COMP" >> $tmp
 	
-	if [ $addDebSrc=="Y" ] || [ $addDebSrc=="y" ];
+	if [ $addDebSrc == "Y" ] || [ $addDebSrc == "y" ];
 	then
-		echo "deb-src $mirror $VERSION $COMP" >> $tmp 
-		echo "deb-src $mirror $VERSION-updates $COMP" >> $tmp 
-		echo "deb-src $mirror $VERSION-backports $COMP" >> $tmp 
-		echo "deb-src $mirror $VERSION-security $COMP" >> $tmp 
-		#echo "deb-src $mirror $VERSION-proposed $COMP" >> $tmp
+		echo "deb-src $MIRROR $VERSION $COMP" >> $tmp 
+		echo "deb-src $MIRROR $VERSION-updates $COMP" >> $tmp 
+		echo "deb-src $MIRROR $VERSION-backports $COMP" >> $tmp 
+		echo "deb-src $MIRROR $VERSION-security $COMP" >> $tmp 
+		#echo "deb-src $MIRROR $VERSION-proposed $COMP" >> $tmp
 	fi
 
 	sudo mv "$tmp" /etc/apt/sources.list
@@ -133,7 +133,7 @@ function generateSSConfig()
 {
 	local tmp=$(mktemp)
 	echo -e "{" >> $tmp
-	if [ $useKcp=="Y" ];
+	if [ $useKcp == "Y" ];
 	then
 		echo -e "\"server\":\"127.0.0.1\"," >> $tmp
 	else
@@ -228,11 +228,11 @@ function getKcptunConfig()
 	fi
 	
 	# use the default config
-	if [ $configSS == "D" ];
+	if [ $configKcptun == "D" ];
 	then
 		generateKcptunConfig;
 	# use self define config
-	elif [ $configSS == "Y" ];
+	elif [ $configKcptun == "Y" ];
 	then
 		read -p  "Kcptun Version?(Default:20170329):" var
 		if [[ -n $var ]];
@@ -352,7 +352,7 @@ function configOhMyZsh()
 		echo -e "\e[1;44mBackup your .zshrc to .zshrc."`date +%F-%R:%S`
 		echo -e "\e[0m"
 		sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-		sed -i 's/plugins=(git)/plugins=(git vim ubuntu docker)/g' ~/.zshrc
+		sed -i 's/plugins=(*)/plugins=(git vim ubuntu docker)/g' ~/.zshrc
 		sudo chsh -s /bin/zsh
 	fi
 	echo -e "Config Oh-My-Zsh successsed"
@@ -363,24 +363,30 @@ function configShadowsocks()
 {
 	echo -e "\n----------------------------------------------------------------------------------------------------"
 	sudo apt-get install python-pip proxychains
-	pip install shadowsocks
-	if [ $useKcp == "Y" ];
-	then
-		cd ~/.kqf
-		wget $KcpDownloadUrl
-		tat -xvf kcptun-linux-$systemArch-$KcpVersion.tar.gz
-		cd kcptun-linux-$systemArch-$KcpVersion
-		mv client_linux_$systemArch ../
-		cd ..
-		sudo rm kcptun-linux-$systemArch-$KcpVersion -R
-		echo -e "alias kcptun=\"nohup client_linux_$systemArch -c ~/.kqf/kcptun.json &\"" >> ~/.zshrc
-	fi
+	sudo pip install -i https://pypi.tuna.tsinghua.edu.cn/simple shadowsocks
 	
 	echo -e "alias ss=\"nohup sslocal -c ~/.kqf/shadowsocks.json &\""  >> ~/.zshrc
 	sudo sed -i 's/socks4 	127.0.0.1 9050/socks5 	127.0.0.1 1080/g' /etc/proxychains.conf
+	
+	if [ $useKcp == "Y" ];
+	then
+		cd ~/.kqf
+		sslocal -s $SSServerIp -p $SSRemotePort -k $SSKey -m $SSMethod &
+		sleep 1s
+		proxychains wget $KcpDownloadUrl
+		tar -xvf kcptun-linux-$systemArch-$KcpVersion.tar.gz
+		rm server_linux_$systemArch
+		rm kcptun-linux-$systemArch-$KcpVersion.tar.gz
+		# cd kcptun-linux-$systemArch-$KcpVersion
+		#mv client_linux_$systemArch ../
+		#cd ..
+		#sudo rm kcptun-linux-$systemArch-$KcpVersion -R
+		echo -e "alias kcptun=\"nohup client_linux_$systemArch -c ~/.kqf/kcptun.json &\"" >> ~/.zshrc
+	fi
+	
 
-	zsh
-	echo -e "Config ShadowSocks successsed.You can use\e[1;44mss kcptun proxychains\e[0m Now"
+	# zsh
+	echo -e "Config ShadowSocks successsed.You can use\e[1;44m ss kcptun proxychains\e[0m Now"
 }
 
 # config ssh server
@@ -406,6 +412,9 @@ setPkgSource;
 updateSources
 
 setBasicPkg;
+
+sudo apt-get update
+sudo apt-get install $basicPkg
 
 setIdentifyVar;
 
@@ -438,9 +447,9 @@ fi
 if [ $useJupyter == "Y" ];
 then
 	sudo apt-get install ipython ipython-notebook
-	sudo -H pip install jupyter
-	wget "$githubURLjupyter_notebook_config.py"
-	wget "$githubURLmycert.pem"
+	sudo pip install -i https://pypi.tuna.tsinghua.edu.cn/simple jupyter
+	wget https://raw.githubusercontent.com/kangqf/config/ubuntu/jupyter_notebook_config.py
+	wget https://raw.githubusercontent.com/kangqf/config/ubuntu/mycert.pem
 	cp jupyter_notebook_config.py mycert.pem ~/.jupyter
 	sed -i "s/kqf/$USER/g" ~/.jupyter/jupyter_notebook_config.py
 	echo -e "alias jpy=\"nohup jupyter notebook &\""  >> ~/.zshrc
@@ -450,7 +459,8 @@ fi
 
 if [ $useTmuxConfig == "Y" ];
 then
-	wget "$githubURLtmux.conf"
+	wget $githubURLtmux.conf
+	wget https://raw.githubusercontent.com/kangqf/config/ubuntu/tmux.conf
 	sudo mv /etc/tmux.conf /etc/tmux.conf.`date +%F-%R:%S`
 	sudo mv tmux.conf /etc/
 fi
@@ -461,7 +471,7 @@ then
 	sudo mv /etc/vim/vimrc /etc/vim/vimrc.`date +%F-%R:%S`
 	sudo mkdir /etc/vim/bundle
 	sudo git clone https://github.com/gmarik/Vundle.vim.git /etc/vim/bundle/Vundle.vim
-	wget "$githubURLvimrcNoYCM"
+	wget https://raw.githubusercontent.com/kangqf/config/ubuntu/vimrcNoYCM
 	sudo mv vimrcNoYCM /etc/vim/vimrc
 	
 	echo -e "you need run sudo proxychains vim +PluginInstall"

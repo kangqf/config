@@ -58,7 +58,6 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'derekwyatt/vim-protodef'
 Plugin 'scrooloose/nerdtree'
 Plugin 'fholgado/minibufexpl.vim'
@@ -417,45 +416,6 @@ let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
 " let g:UltiSnipsSnippetDirectories=["mysnippets"]
 
-" -----------------------------------------------------------------------------
-"  < Ycm 跳转配置 >	基于标签的代码导航 <leader>jd <leader>je
-" -----------------------------------------------------------------------------
-nnoremap <leader>jd :YcmCompleter GoToDeclaration<CR>
-" 只能是 #include 或已打开的文件
-nnoremap <leader>je :YcmCompleter GoToDefinition<CR>
-
-" -----------------------------------------------------------------------------
-"  <  YCM 补全插件配置 > <leader>;
-" -----------------------------------------------------------------------------
-
-" YCM 补全菜单配色
-" 菜单
-highlight Pmenu ctermfg=6 ctermbg=8 guifg=#8B0000 guibg=#ADD8E6 "#EEE8D5
-" 选中项
-highlight PmenuSel ctermfg=3 ctermbg=4 guifg=#AFD700 guibg=#106900 "#106900
-
-" 补全功能在注释中同样有效
-let g:ycm_complete_in_comments=1
-" 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
-let g:ycm_confirm_extra_conf=0
-" 开启 YCM 标签补全引擎
-let g:ycm_collect_identifiers_from_tags_files=1
-" 引入 C++ 标准库 tags
-set tags+=/usr/include/c++/5.4.0/stdcpp.tags
-" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
-inoremap <leader>; <C-x><C-o>
-" 补全内容不以分割子窗口形式出现，只显示补全列表
-set completeopt-=preview
-" 从第一个键入字符就开始罗列匹配项
-let g:ycm_min_num_of_chars_for_completion=1
-" 禁止缓存匹配项，每次都重新生成匹配项
-let g:ycm_cache_omnifunc=0
-" 语法关键字补全
-let g:ycm_seed_identifiers_with_syntax=1
-" inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"	
-"回车即选中当前项
-"let g:endwise_no_mappings = 1
-" let g:ycm_key_invoke_completion = '<CR>'
 
 " -----------------------------------------------------------------------------
 "  "  <  protodef 补全插件配置 >  
