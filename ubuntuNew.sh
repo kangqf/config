@@ -159,7 +159,7 @@ function generateKcptunConfig()
 	echo -e "\"localaddr\":\"127.0.0.1:$KcptunLocalPort\"," >> $tmp
 	echo -e "\"remoteaddr\":\"$SSServerIp:$KcptunRemotePort\"," >> $tmp
 	echo -e "\"key\": \"$KcptunKey\"," >> $tmp
-	echo -e "\"crypt\":$KcpCrypt,"  >> $tmp
+	echo -e "\"crypt\":\"$KcpCrypt\","  >> $tmp
 	echo -e "\"mode\":\"$KcpMode\"" >> $tmp
 	echo -e "}" >> $tmp
 	mv "$tmp" ~/.kqf/kcptun.json
