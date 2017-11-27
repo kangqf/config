@@ -353,7 +353,7 @@ function configOhMyZsh()
 		echo -e "\e[0m"
 		sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 		sed -i 's/plugins=(*)/plugins=(git vim ubuntu docker)/g' ~/.zshrc
-		sudo chsh -s /bin/zsh
+		chsh -s /bin/zsh
 	fi
 	echo -e "Config Oh-My-Zsh successsed"
 }
@@ -381,7 +381,7 @@ function configShadowsocks()
 		#mv client_linux_$systemArch ../
 		#cd ..
 		#sudo rm kcptun-linux-$systemArch-$KcpVersion -R
-		echo -e "alias kcptun=\"nohup client_linux_$systemArch -c ~/.kqf/kcptun.json &\"" >> ~/.zshrc
+		echo -e "alias kcptun=\"nohup ~/.kqf/client_linux_$systemArch ~/.kqf/kcptun.json &\"" >> ~/.zshrc
 	fi
 	
 
