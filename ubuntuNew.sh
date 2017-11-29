@@ -381,7 +381,7 @@ function configShadowsocks()
 		#mv client_linux_$systemArch ../
 		#cd ..
 		#sudo rm kcptun-linux-$systemArch-$KcpVersion -R
-		echo -e "alias kcptun=\"sudo nohup ~/.kqf/client_linux_$systemArch -c ~/.kqf/kcptun.json &\"" >> ~/.zshrc
+		echo -e "alias kcptun=\"nohup sudo ~/.kqf/client_linux_$systemArch -c ~/.kqf/kcptun.json &\"" >> ~/.zshrc
 	fi
 	
 
