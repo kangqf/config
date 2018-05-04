@@ -562,8 +562,8 @@ let s:Exe_Extension = '.exe'
 let s:Sou_Error = 0
 
 "\ -std=c++11 为冷小飞侠添加，为支持C++11
-let s:windows_CFlags = 'gcc\ -std=c++11\ -fexec-charset=gbk\ -Wall\ -g\ -O0\ -c\ %\ -o\ %<.o'
-let s:linux_CFlags = 'gcc\ -Wall\ -std=c++11\ -g\ -O0\ -c\ %\ -o\ %<.o'
+let s:windows_CFlags = 'gcc\ -fexec-charset=gbk\ -Wall\ -g\ -O0\ -c\ %\ -o\ %<.o'
+let s:linux_CFlags = 'gcc\ -Wall\ -g\ -O0\ -c\ %\ -o\ %<.o'
 let s:windows_CPPFlags = 'g++\ -std=c++11\ -fexec-charset=gbk\ -Wall\ -g\ -O0\ -c\ %\ -o\ %<.o'
 let s:linux_CPPFlags = 'g++\ -Wall\ -std=c++11\ -g\ -O0\ -c\ %\ -o\ %<.o'
 
