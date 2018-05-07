@@ -17,7 +17,7 @@ githubURL=https://raw.githubusercontent.com/kangqf/config/ubuntu/
 basicPkg="git zsh vim tmux tree wget curl vnstat rar unrar p7zip-full zip unzip build-essential chromium-browser"
 
 # variables relate to packages source  
-VERSION="xenial"
+VERSION="bionic"
 COMP="main restricted universe multiverse"
 MIRROR="https://mirrors.tuna.tsinghua.edu.cn/ubuntu/"
 addDebSrc="N"
@@ -67,7 +67,7 @@ function setPkgSource()
 	echo -e "\n----------------------------------------------------------------------------------------------------"
 	echo "First, You need to set you Ubuntu version and package source URL"
 	echo -e "\e[1;42m"
-	read -p  "Set Ubuntu Version(precise trusty xenial->default ...):" var
+	read -p  "Set Ubuntu Version(precise trusty bionic->default ...):" var
 	if [[ -n $var ]];
 	then 
 		VERSION=$var;
