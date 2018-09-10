@@ -401,6 +401,7 @@ let g:indexer_ctagsCommandLineOptions="--c++-kinds=+l+p+x+c+d+e+f+g+m+n+s+t+u+v 
 " -----------------------------------------------------------------------------
 " 使用 ctrlsf.vim 插件在工程内全局查找光标所在关键字，设置快捷键。快捷键速记法：search in project
 nnoremap <Leader>sp :CtrlSF<CR>
+" let g:ctrlsf_ackprg = 'ag'
 
 " -----------------------------------------------------------------------------
 "  < vim-multiple-cursors 插件配置 >
